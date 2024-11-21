@@ -1,45 +1,55 @@
 const mongoose = require('mongoose');
-const { Category } = require('./Category');
 
 const productSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true,  
     },
     description: {
         type: String,
         required: true,
     },
     images: [
-        {
-            type: String,
-            required: true,
-        }
-    ],
-    brand: {
+    {
         type: String,
         required: true,
+        validate: {
+            validator: (v) => /^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/.test(v),
+            message: "Invalid image URL",
+        },
     },
+],
+
+    brand: {
+    type: String,
+    required: false, 
+},
     price: {
         type: Number,
         default: 0,
+        min: 0,  
+    },
+    oldPrice: {
+        type: Number,
+        default: 0,
+        min: 0,  
     },
     category: {  
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
+        type: String,  
         required: true,  
+        index: true,  
     },
     countInStock: {  
         type: Number,
         required: true,
+        min: 0,  
     },
     rating: {  
         type: Number,
         default: 0,
-    },
-    numReviews: {
-        type: Number,
-        default: 0,
+        min: 0,  
+        max: 5,
     },
     isFeatured: {
         type: Boolean,
@@ -51,4 +61,4 @@ const productSchema = mongoose.Schema({
     },
 });
 
-exports.product = mongoose.model('Product', productSchema);
+  module.exports = mongoose.model('Product', productSchema);

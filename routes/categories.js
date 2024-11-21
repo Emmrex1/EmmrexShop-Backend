@@ -16,7 +16,6 @@ let pLimit;
     pLimit = importedPLimit;
 })();
 
-// GET all categories
 router.get('/', async (req, res) => {
     try {
         const categoryList = await Category.find();
@@ -29,7 +28,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET a single category by ID
+
 router.get('/:id', async (req, res) => {
     try {
         const category = await Category.findById(req.params.id);
@@ -42,7 +41,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// DELETE a category
+
 router.delete('/:id', async (req, res) => {
     try {
         const deletedCategory = await Category.findByIdAndDelete(req.params.id);
@@ -55,7 +54,7 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-// POST (Create) a category
+
 router.post('/create', async (req, res) => {
     try {
         const limit = pLimit(2);
@@ -82,7 +81,7 @@ router.post('/create', async (req, res) => {
     }
 });
 
-// PUT (Update) a category
+
 router.put('/:id', async (req, res) => {
     try {
         let imgurl = req.body.images;
@@ -121,3 +120,5 @@ router.put('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
+
