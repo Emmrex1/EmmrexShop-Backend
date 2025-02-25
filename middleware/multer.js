@@ -1,5 +1,4 @@
-// middleware/multer.js
-const multer = require('multer');
+const multer = require('multer'); 
 const path = require('path');
 
 const storage = multer.diskStorage({

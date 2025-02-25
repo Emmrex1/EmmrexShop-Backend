@@ -1,0 +1,17 @@
+const mongoose = require('mongoose');
+
+const productWeightSchema = mongoose.Schema({
+    name: {
+        type: String,
+        default: null,
+    },
+});
+
+productWeightSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+productWeightSchema.set('toJSON', { virtuals: true });
+const ProductWeight = mongoose.model('ProductWeight', productWeightSchema);
+
+module.exports = ProductWeight; 
